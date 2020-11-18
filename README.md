@@ -12,7 +12,7 @@ To design: an art gallery, with a basic model on the back end, routes for middle
 - This project is shown as a template.  You can choose to use it or create your own framework.
 - Feel free to use any tech stack that you are comfortable with.
 
-## Things to note when using the template****
+## Things to note when using the template
 
 Make sure to migrate database and build the frontend before attempting to run.
 
