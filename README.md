@@ -37,6 +37,7 @@ This template requires the following core dependencies:
 ## Getting Started
 
 - Install Python 3.6.0 from [here](https://www.python.org/downloads/release/python-360/)
+- Setup virtual env from [here](https://docs.python.org/3/library/venv.html)
 - Download node from [here](https://nodejs.org/download/release/v14.4.0/)
 - Make sure to download some sort of package manager, for the following steps we will be using pip
 - In the main folder where `requirements.txt` exists, run `pip install -r requirements.txt`
