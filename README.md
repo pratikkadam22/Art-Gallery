@@ -9,7 +9,7 @@ To design: an art gallery, with a basic model on the back end, routes for middle
 - assume art piece is just an image file
 
 # Instructions
-- This project is shown as a template.  You can choose to use it or create your own framework.
+- This project is shown as a template using postgreSQL, Python, Django, & ReactJS.  You can choose to use it or create your own framework.
 - Feel free to use any tech stack that you are comfortable with.
 
 ## Things to note when using the template
@@ -32,7 +32,7 @@ This template requires the following core dependencies:
 
 - Python 3.6
 - Node v14.4.0
-- PostgreSQL 12.3
+- PostgreSQL 12.3 (NOTE: you can use any database of your liking such as MongoDB, MySQL, etc. with the template, it is just currently setup for postgres)
 
 ## Getting Started
 
