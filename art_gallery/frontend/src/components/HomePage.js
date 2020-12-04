@@ -9,8 +9,8 @@ class HomePage extends Component {
     state = {
         picture: null,
         name: '',
-        artist_name: '',
-        buyer_name: '',
+        artist: '',
+        buyer: '',
         art_list: [],
         errStatus: false
     }
@@ -60,8 +60,8 @@ class HomePage extends Component {
     imageUploadHandler = () => {
         const fd = new FormData();
         fd.append("name",this.state.name)
-        fd.append("artist_name",this.state.artist_name)
-        fd.append("buyer_name",this.state.buyer_name)
+        fd.append("artist",this.state.artist)
+        fd.append("buyer",this.state.buyer)
         fd.append("picture",this.state.picture)
         axios.post(BASE_REST_URL + "art-create/", fd)
         .then(res => {
@@ -73,8 +73,8 @@ class HomePage extends Component {
             else { 
                 document.getElementById("picture").value = null;
                 document.getElementById("name").value = "";
-                document.getElementById("artist_name").value = "";
-                document.getElementById("buyer_name").value = "";
+                document.getElementById("artist").value = "";
+                document.getElementById("buyer").value = "";
                 this.getAllArt(); }
         })
         .catch(error => {
@@ -93,13 +93,13 @@ class HomePage extends Component {
         return (
             <div><div className="container"><br />
             <div className="card bg-dark text-white">
-            <div className="card-body text-center"><b>ART GALLERY</b></div>
+            <div className="card-body text-center"><h3><b>ART GALLERY</b></h3></div>
             </div><br />
             <div className="row">
                 {this.DisplayArtCards()}
             </div>
             <div className="border border-dark rounded bg-light"><br />
-                <h5>Upload new Art to Gallery</h5>
+                <h5>Upload new Art to Gallery <small>("Art Name" should be unique)</small></h5>
                 <div className="row">
                     <div className="col pl-4">
                         <label htmlFor="picture">Browse picture:</label>
@@ -110,12 +110,12 @@ class HomePage extends Component {
                         <input id="name" type="text" onChange={this.newNameHandler} />
                     </div>
                     <div className="col">
-                        <label htmlFor="artist_name">Artist name:</label>
-                        <input id="artist_name" type="text" onChange={this.newNameHandler} />
+                        <label htmlFor="artist">Artist name:</label>
+                        <input id="artist" type="text" onChange={this.newNameHandler} />
                     </div>
                     <div className="col">
-                        <label htmlFor="buyer_name">Buyer name:</label>
-                        <input id="buyer_name" type="text" onChange={this.newNameHandler} />
+                        <label htmlFor="buyer">Buyer name:</label>
+                        <input id="buyer" type="text" onChange={this.newNameHandler} />
                     </div>
                     <div className="col">
                         <button type="button" className="btn btn-dark btn-lg" onClick={this.imageUploadHandler}>Upload!</button>
