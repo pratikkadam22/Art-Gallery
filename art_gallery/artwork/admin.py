@@ -1,4 +1,6 @@
 from django.contrib import admin
-from artwork import models
+from .models import Art
 
 ### Register your models here ###
+
+admin.site.register(Art)

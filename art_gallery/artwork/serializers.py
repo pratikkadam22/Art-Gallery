@@ -1,4 +1,9 @@
 from rest_framework import serializers
-from artwork import models
+from .models import Art
 
 ### Create your model serializers here ###
+
+class ArtSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Art
+        fields = '__all__'
