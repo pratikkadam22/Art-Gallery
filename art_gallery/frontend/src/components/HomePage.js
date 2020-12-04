@@ -28,12 +28,23 @@ class HomePage extends Component {
     componentDidMount (){
         this.getAllArt();
     }
+    deleteHandler = (artname) => {
+        axios.delete(BASE_REST_URL + "art-delete/" + artname)
+        .then(res => {
+            console.log(res)
+            this.getAllArt();
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    }
     DisplayArtCards = () => {
         if (this.state.art_list && this.state.art_list.length){
             return this.state.art_list.map((art, index) =>
-                <ArtCard art={art} key={index}/>)
+                <ArtCard art={art} deleteHandler={this.deleteHandler} key={index}/>)
         }
-        return (<div><h2>The Art gallery is Empty!</h2></div>)
+        return (<div className="jumbotron border border-dark col-md-12"><div className="container"><h1 className="display-4">
+            The Art gallery is Empty!</h1></div></div>)
     }
 
     imageSelectedHandler = event => {
@@ -58,9 +69,13 @@ class HomePage extends Component {
                 this.setState({
                     errStatus: true
                 })
-                // console.log("upload", this.state)
             }
-            else { this.getAllArt(); }
+            else { 
+                document.getElementById("picture").value = null;
+                document.getElementById("name").value = "";
+                document.getElementById("artist_name").value = "";
+                document.getElementById("buyer_name").value = "";
+                this.getAllArt(); }
         })
         .catch(error => {
             console.log(error)
@@ -69,7 +84,6 @@ class HomePage extends Component {
     }
 
     displayStatusMessage = () => {
-        console.log("status", this.state)
         if (this.state.errStatus === true) {
             return <div><StatusMessage /></div>
         }
@@ -87,7 +101,7 @@ class HomePage extends Component {
             <div className="border border-dark rounded bg-light"><br />
                 <h5>Upload new Art to Gallery</h5>
                 <div className="row">
-                    <div className="col">
+                    <div className="col pl-4">
                         <label htmlFor="picture">Browse picture:</label>
                         <input id="picture" type="file" onChange={this.imageSelectedHandler}/>
                     </div>
