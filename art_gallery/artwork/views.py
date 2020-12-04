@@ -11,8 +11,8 @@ def apiOverview(request):
         'List': '/art-list/',
         'Art': '/art/<str:pk>',
         'Create': '/art-create/',
-        'Update': '/task-update/<str:pk>/',
-        'Delete': '/task-delete/<str:pk>/'
+        'Update': '/art-update/<str:pk>/',
+        'Delete': '/art-delete/<str:pk>/'
     }
     return Response(api_urls)
 

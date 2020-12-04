@@ -5,13 +5,15 @@ const LOCAL_BASE = "http://localhost:5000"
 function ArtCard(props) {
     const {art} = props;
     return (
-        <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <img src={LOCAL_BASE + art.picture} className="img-responsive" alt=""/>
-        <div className="description">
-            Art name: {art.name} <br />
-            Artist: {art.artist_name} <br />
-            Buyer: {art.buyer_name}
-        </div>        
+        <div className="col-sm-3 pb-3">
+            <div className="card bg-dark text-white">
+            <img className="card-img-top" src={LOCAL_BASE + art.picture} alt="Card image cap" />
+            <div className="card-body">
+            <h5 className="card-title">{art.name}</h5>
+            <p className="card-text">Artist: <b>{art.artist_name}</b></p>
+            <p className="card-text">Buyer: <b>{art.buyer_name}</b></p>
+            </div>
+            </div>
         </div>
     )
 }
