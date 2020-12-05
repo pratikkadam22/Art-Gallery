@@ -1,3 +1,26 @@
+# Instructions for Running the Project:-
+Before running the project, make sure you set up these things:-
+
+- Python 3.6.0
+- venv
+- Node v14.4.0
+- PostgreSQL 12.3
+
+Once you're all set up, follow the instructions:-
+
+- In the main folder where requirements.txt exists, run pip install -r requirements.txt
+- In the frontend folder where package.json exists, run npm install followed by npm run build
+- Setup postgres (DATABASES configuration in the settings.py file)
+- Start the postgres server
+- Go to the folder where `manage.py` is located
+- Run `python manage.py makemigrations artwork` to create the migrations (generate SQL commands)
+- Run `python manage.py migrate` to run the migrations (execute the SQL commands and apply changes)
+- Finally to start the app, run `python manage.py runserver 0:5000` to run the backend Django server (any port can be used, here its 5000)
+- Go to /frontend folder and run `npm start` (by default runs at 3000)
+- Visit http://localhost:3000/ to view the art gallery.
+- To add an Artwork to the gallery, use the section at the bottom of the page.
+- To delete and Artwork from the gallery, just press the Delete button on the Artwork.
+
 # Art Gallery
 
 To design: an art gallery, with a basic model on the back end, routes for middleware (no need to go deep dive into rest infrastructure), and a single top level front-end component to show all attachments (images). 
