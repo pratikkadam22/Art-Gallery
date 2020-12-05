@@ -3,8 +3,14 @@ import ArtCard from './ArtCard'
 import axios from 'axios'
 import StatusMessage from './StatusMessage'
 
+// This is the base url for the backend Django Rest framework
 const BASE_REST_URL = "http://localhost:5000/api/"
 
+/**
+ * Component for rendering the main Art Gallery Page
+ * 
+ * @component
+ */
 class HomePage extends Component {
     state = {
         picture: null,
@@ -14,6 +20,10 @@ class HomePage extends Component {
         art_list: [],
         errStatus: false
     }
+
+    /**
+     * This method updates the list of Artwork in the state by making a GET request.
+     */
     getAllArt () {
         axios.get(BASE_REST_URL + "art-list/")
         .then(res => {
@@ -25,19 +35,31 @@ class HomePage extends Component {
             console.log(error)
         });
     }
+
+    /**
+     * This is a lifecycle method that is executed once after the first render.
+     */
     componentDidMount (){
         this.getAllArt();
     }
+
+    /**
+     * This method deletes the specified Artwork from the gallery
+     * @param {string} artname name of the art to be deleted
+     */
     deleteHandler = (artname) => {
         axios.delete(BASE_REST_URL + "art-delete/" + artname)
         .then(res => {
-            console.log(res)
             this.getAllArt();
         })
         .catch(error => {
             console.log(error)
         });
     }
+
+    /**
+     * Render the ArtCards for all the Artworks currently in the state.
+     */
     DisplayArtCards = () => {
         if (this.state.art_list && this.state.art_list.length){
             return this.state.art_list.map((art, index) =>
@@ -47,16 +69,29 @@ class HomePage extends Component {
             The Art gallery is Empty!</h1></div></div>)
     }
 
+    /**
+     * Responsible for making the change in value of the picture field whenever it is changed.
+     * @param {event} event The onChange event on the picture field
+     */
     imageSelectedHandler = event => {
         this.setState({
             picture: event.target.files[0]
         })
     }
+
+    /**
+     * Responsible for making the change in value of the input text field whenever it is changed.
+     * @param {event} event The onChange event on the input text field
+     */
     newNameHandler = event => {
         this.setState({
             [event.target.id]: event.target.value
         })
     }
+
+    /**
+     * Responsible for making the POST request to add a new Artwork to the gallery.
+     */
     imageUploadHandler = () => {
         const fd = new FormData();
         fd.append("name",this.state.name)
@@ -83,12 +118,16 @@ class HomePage extends Component {
         this.setState({ errStatus: false })
     }
 
+    /**
+     * Renders the status message if the provided data for new art is incorrect.
+     */
     displayStatusMessage = () => {
         if (this.state.errStatus === true) {
             return <div><StatusMessage /></div>
         }
         return (<div></div>)
     }
+
     render() {
         return (
             <div><div className="container"><br />

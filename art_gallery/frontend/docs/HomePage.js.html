@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: HomePage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: HomePage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react'
+import ArtCard from './ArtCard'
+import axios from 'axios'
+import StatusMessage from './StatusMessage'
+
+// This is the base url for the backend Django Rest framework
+const BASE_REST_URL = "http://localhost:5000/api/"
+
+/**
+ * Component for rendering the main Art Gallery Page
+ * 
+ * @component
+ */
+class HomePage extends Component {
+    state = {
+        picture: null,
+        name: '',
+        artist: '',
+        buyer: '',
+        art_list: [],
+        errStatus: false
+    }
+
+    /**
+     * This method updates the list of Artwork in the state by making a GET request.
+     */
+    getAllArt () {
+        axios.get(BASE_REST_URL + "art-list/")
+        .then(res => {
+            this.setState({
+                art_list: res.data
+            });
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    }
+
+    /**
+     * This is a lifecycle method that is executed once after the first render.
+     */
+    componentDidMount (){
+        this.getAllArt();
+    }
+
+    /**
+     * This method deletes the specified Artwork from the gallery
+     * @param {string} artname name of the art to be deleted
+     */
+    deleteHandler = (artname) => {
+        axios.delete(BASE_REST_URL + "art-delete/" + artname)
+        .then(res => {
+            this.getAllArt();
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    }
+
+    /**
+     * Render the ArtCards for all the Artworks currently in the state.
+     */
+    DisplayArtCards = () => {
+        if (this.state.art_list &amp;&amp; this.state.art_list.length){
+            return this.state.art_list.map((art, index) =>
+                &lt;ArtCard art={art} deleteHandler={this.deleteHandler} key={index}/>)
+        }
+        return (&lt;div className="jumbotron border border-dark col-md-12">&lt;div className="container">&lt;h1 className="display-4">
+            The Art gallery is Empty!&lt;/h1>&lt;/div>&lt;/div>)
+    }
+
+    /**
+     * Responsible for making the change in value of the picture field whenever it is changed.
+     * @param {event} event The onChange event on the picture field
+     */
+    imageSelectedHandler = event => {
+        this.setState({
+            picture: event.target.files[0]
+        })
+    }
+
+    /**
+     * Responsible for making the change in value of the input text field whenever it is changed.
+     * @param {event} event The onChange event on the input text field
+     */
+    newNameHandler = event => {
+        this.setState({
+            [event.target.id]: event.target.value
+        })
+    }
+
+    /**
+     * Responsible for making the POST request to add a new Artwork to the gallery.
+     */
+    imageUploadHandler = () => {
+        const fd = new FormData();
+        fd.append("name",this.state.name)
+        fd.append("artist",this.state.artist)
+        fd.append("buyer",this.state.buyer)
+        fd.append("picture",this.state.picture)
+        axios.post(BASE_REST_URL + "art-create/", fd)
+        .then(res => {
+            if (typeof res.data === 'string'){
+                this.setState({
+                    errStatus: true
+                })
+            }
+            else { 
+                document.getElementById("picture").value = null;
+                document.getElementById("name").value = "";
+                document.getElementById("artist").value = "";
+                document.getElementById("buyer").value = "";
+                this.getAllArt(); }
+        })
+        .catch(error => {
+            console.log(error)
+        });
+        this.setState({ errStatus: false })
+    }
+
+    /**
+     * Renders the status message if the provided data for new art is incorrect.
+     */
+    displayStatusMessage = () => {
+        if (this.state.errStatus === true) {
+            return &lt;div>&lt;StatusMessage />&lt;/div>
+        }
+        return (&lt;div>&lt;/div>)
+    }
+
+    render() {
+        return (
+            &lt;div>&lt;div className="container">&lt;br />
+            &lt;div className="card bg-dark text-white">
+            &lt;div className="card-body text-center">&lt;h3>&lt;b>ART GALLERY&lt;/b>&lt;/h3>&lt;/div>
+            &lt;/div>&lt;br />
+            &lt;div className="row">
+                {this.DisplayArtCards()}
+            &lt;/div>
+            &lt;div className="border border-dark rounded bg-light">&lt;br />
+                &lt;h5>Upload new Art to Gallery &lt;small>("Art Name" should be unique)&lt;/small>&lt;/h5>
+                &lt;div className="row">
+                    &lt;div className="col pl-4">
+                        &lt;label htmlFor="picture">Browse picture:&lt;/label>
+                        &lt;input id="picture" type="file" onChange={this.imageSelectedHandler}/>
+                    &lt;/div>
+                    &lt;div className="col">
+                        &lt;label htmlFor="name">Art name:&lt;/label>
+                        &lt;input id="name" type="text" onChange={this.newNameHandler} />
+                    &lt;/div>
+                    &lt;div className="col">
+                        &lt;label htmlFor="artist">Artist name:&lt;/label>
+                        &lt;input id="artist" type="text" onChange={this.newNameHandler} />
+                    &lt;/div>
+                    &lt;div className="col">
+                        &lt;label htmlFor="buyer">Buyer name:&lt;/label>
+                        &lt;input id="buyer" type="text" onChange={this.newNameHandler} />
+                    &lt;/div>
+                    &lt;div className="col">
+                        &lt;button type="button" className="btn btn-dark btn-lg" onClick={this.imageUploadHandler}>Upload!&lt;/button>
+                    &lt;/div>
+                &lt;/div>&lt;br />
+                {this.displayStatusMessage()}
+            &lt;/div>&lt;br />
+            &lt;/div>
+            &lt;div className="navbar navbar-dark bg-dark text-center">
+            &lt;span className="navbar-brand mb-0 h1">Author: Pratik Kadam&lt;/span>
+        &lt;/div>
+        &lt;/div>
+        )
+    }
+}
+
+export default HomePage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ArtCard.html">ArtCard</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="StatusMessage.html">StatusMessage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Dec 04 2020 16:57:37 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

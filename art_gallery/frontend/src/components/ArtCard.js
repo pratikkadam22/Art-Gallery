@@ -1,7 +1,13 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const LOCAL_BASE = "http://localhost:5000"
 
+/**
+ * A functional component to render a single Card for an artwork in the gallery.
+ * 
+ * @component 
+ */
 function ArtCard(props) {
     const {art, deleteHandler} = props;
     return (
@@ -17,6 +23,17 @@ function ArtCard(props) {
             </div>
         </div>
     )
+}
+
+ArtCard.propTypes = {
+    /**
+     * An object with the details of a single Artwork.
+     */
+    art: PropTypes.object.isRequired,
+    /**
+     * The function that updates the list of current Arts in the state of parent Homepage component.
+     */
+    deleteHandler: PropTypes.func.isRequired
 }
 
 export default ArtCard;
