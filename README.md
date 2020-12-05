@@ -19,7 +19,7 @@ Once you're all set up, follow the instructions:-
 - Go to /frontend folder and run `npm start` (by default runs at 3000)
 - Visit http://localhost:3000/ to view the art gallery.
 - To add an Artwork to the gallery, use the section at the bottom of the page.
-- To delete and Artwork from the gallery, just press the Delete button on the Artwork.
+- To delete an Artwork from the gallery, just press the Delete button on the Artwork.
 
 # Art Gallery
 
