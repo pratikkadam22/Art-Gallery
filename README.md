@@ -1,7 +1,7 @@
 # Instructions for Running the Project:-
 Before running the project, make sure you set up these things:-
 
-- Python 3.6.0
+- Python 3.6
 - venv
 - Node v14.4.0
 - PostgreSQL 12.3
