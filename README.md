@@ -14,9 +14,9 @@ Once you're all set up, follow the instructions:-
 - In the main folder where requirements.txt exists, run `pip install -r requirements.txt`
     For users other than Windows(Mac or Linux), the above command may give an error on installing psycopg2
     To fix it, follow these steps:- 
-        1) Remove `psycopg2==2.8.5` from `requirements.txt`
-        2) Run `pip install psycopg2-binary`
-        3) Then run, `pip install -r requirements.txt` to install rest of the packages
+        - Remove `psycopg2==2.8.5` from `requirements.txt`
+        - Run `pip install psycopg2-binary`
+        - Then run, `pip install -r requirements.txt` to install rest of the packages
 - In the frontend folder where package.json exists, run `npm install` followed by `npm run build`
 - Go to the folder where `manage.py` is located
 - Run `python manage.py makemigrations artwork` to create the migrations (generate SQL commands)
