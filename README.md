@@ -8,9 +8,9 @@ Before running the project, make sure you set up these things:-
 
 Once you're all set up, follow the instructions:-
 
-- In the main folder where requirements.txt exists, run pip install -r requirements.txt
-- In the frontend folder where package.json exists, run npm install followed by npm run build
-- Setup postgres (DATABASES configuration in the settings.py file)
+- In the main folder where requirements.txt exists, run `pip install -r requirements.txt`
+- In the frontend folder where package.json exists, run `npm install` followed by `npm run build`
+- Setup postgres (DATABASES configuration in the `settings.py` file)
 - Start the postgres server
 - Go to the folder where `manage.py` is located
 - Run `python manage.py makemigrations artwork` to create the migrations (generate SQL commands)
