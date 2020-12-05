@@ -21,8 +21,8 @@ Once you're all set up, follow the instructions:-
 - To add an Artwork to the gallery, use the section at the bottom of the page.
 - To delete an Artwork from the gallery, just press the Delete button on the Artwork.
 
-### Documentation for the Django backend is included with the code and can also be viewed at `http://localhost:5000/admin/doc/`
-### Documentation for the React frontend is included with the code and can also be viewed in `/art_gallery/frontend/docs/` directory (open `index.html`)
+# Documentation for the Django backend is included with the code and can also be viewed at `http://localhost:5000/admin/doc/`
+# Documentation for the React frontend is included with the code and can also be viewed in `/art_gallery/frontend/docs/` directory (open `index.html`)
 
 # Art Gallery
 
