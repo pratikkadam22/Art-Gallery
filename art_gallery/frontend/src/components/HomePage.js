@@ -14,9 +14,9 @@ const BASE_REST_URL = "http://localhost:5000/api/"
 class HomePage extends Component {
     state = {
         picture: null,
-        name: '',
-        artist: '',
-        buyer: '',
+        name: null,
+        artist: null,
+        buyer: null,
         art_list: [],
         errStatus: false
     }
@@ -28,7 +28,11 @@ class HomePage extends Component {
         axios.get(BASE_REST_URL + "art-list/")
         .then(res => {
             this.setState({
-                art_list: res.data
+                art_list: res.data,
+                picture: null,
+                name: null,
+                artist: null,
+                buyer: null
             });
         })
         .catch(error => {
