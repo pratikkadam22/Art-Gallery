@@ -22,6 +22,7 @@ Once you're all set up, follow the instructions:-
 - Run `python manage.py makemigrations artwork` to create the migrations (generate SQL commands)
 - Run `python manage.py migrate` to run the migrations (execute the SQL commands and apply changes)
 - Finally to start the app, run `python manage.py runserver 0:5000` to run the backend Django server
+- Go to `http://localhost:5000/` to visit the Art Gallery
 - To add an Artwork to the gallery, use the section at the bottom of the page.
 - To delete an Artwork from the gallery, just press the Delete button on the Artwork.
 
